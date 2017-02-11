@@ -5,7 +5,7 @@ import java.util.List;
 public class MemoryCalculator extends SimpleCalculator implements MemoryCalculatorInterface{ // the calculators type is 1 !!!
 
     private double memory = 0;
-    private double value, result = 0;
+    private double result;
 
     @Override
     public void clear() {   //  the sign of the method is "MC"    !!!!
@@ -35,50 +35,58 @@ public class MemoryCalculator extends SimpleCalculator implements MemoryCalculat
     @Override
     public void calculate(List<String> list) {
 
-        for (String iter: list) {
-            iter.trim();
+        for (String elem: list) {
+            elem.trim();
         }
         result = Double.parseDouble(list.get(0));
         for (int i = 1; i < list.size(); i++){
-
-            if ("+".equals(list.get(i))) {
-                double b = Double.parseDouble(list.get(i + 1));
+            String currentValue = list.get(i);
+            if (SUM.equals(currentValue)) {
+                String nextCurrentValue = list.get(i + 1);
+                double b = Double.parseDouble(nextCurrentValue);
                 result = sum(result, b);
             }
-            if ("-".equals(list.get(i))) {
-                double b = Double.parseDouble(list.get(i + 1));
+            if (SUB.equals(currentValue)) {
+                String nextCurrentValue = list.get(i + 1);
+                double b = Double.parseDouble(nextCurrentValue);
                 result = sub(result, b);
             }
-            if ("*".equals(list.get(i))) {
-                double b = Double.parseDouble(list.get(i + 1));
+            if (MUL.equals(currentValue)) {
+                String nextCurrentValue = list.get(i + 1);
+                double b = Double.parseDouble(nextCurrentValue);
                 result = mul(result, b);
-            }if ("/".equals(list.get(i))){
-                double b = Double.parseDouble(list.get(i + 1));
+            }if (DIV.equals(currentValue)){
+                String nextCurrentValue = list.get(i + 1);
+                double b = Double.parseDouble(nextCurrentValue);
                 result = div(result, b);
-            }if ("MC".equals(list.get(i))){
+            }if (MC.equals(currentValue)){
                 clear();
-            }if ("MS".equals(list.get(i))){
+            }if (MS.equals(currentValue)){
                 memory = setValue(result);
-                result = Double.parseDouble(list.get(i + 1));
-            }if ("MR".equals(list.get(i))){
+                String nextCurrentValue = list.get(i + 1);
+                result = Double.parseDouble(nextCurrentValue);
+            }if (MR.equals(currentValue)){
                 result = getValue(memory);
-            }if ("M+".equals(list.get(i))){
+            }if (M_PLUS.equals(currentValue)){
                 memory += increaseValue(result);
                 if ((i + 2) > list.size()) {
                     result = 0;
                 }else {
-                    result = Double.parseDouble(list.get(i + 1));
+                    String nextCurrentValue = list.get(i + 1);
+                    result = Double.parseDouble(nextCurrentValue);
                 }
-            }if ("M-".equals(list.get(i))){
+            }if (M_MINUS.equals(currentValue)){
                 memory -= decreaseValue(result);
                 if ((i + 2) > list.size()) {
                     result = 0;
                 }else {
-                    result = Double.parseDouble(list.get(i + 1));
+                    String nextCurrentValue = list.get(i + 1);
+                    result = Double.parseDouble(nextCurrentValue);
                 }
             }
         }
-        if ("M+".equals(list.get(list.size() - 1)) || "M-".equals(list.get(list.size() - 1))){
+        String theLastValue = list.get(list.size() - 1);
+        if (M_PLUS.equals(theLastValue) || M_MINUS.equals(theLastValue)){
             System.out.println(memory);
         }else {
             System.out.println(result);

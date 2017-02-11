@@ -17,8 +17,7 @@ public class ParsingFile {
     }
 
     void parsing(){
-        try {
-            Scanner scanner = new Scanner(file);
+        try (Scanner scanner = new Scanner(file)){
             type = scanner.next();
             Calculator calculator = CalculatorFactory.createCalculatorByType(type);
             List<String> list = new ArrayList<>();

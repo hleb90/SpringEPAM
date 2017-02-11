@@ -5,6 +5,11 @@ import java.util.List;
  */
 public interface Calculator {
 
+    String SUM = "+";
+    String SUB = "-";
+    String DIV = "/";
+    String MUL = "*";
+
     double sum(double a, double b);
     double sub(double a, double b);
     double mul(double a, double b);

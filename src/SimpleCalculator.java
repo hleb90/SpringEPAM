@@ -5,7 +5,8 @@ import java.util.List;
  */
 public class SimpleCalculator implements Calculator  {   // The calculators type is 0 !!!
 
-    private static double result = 0;
+    private double result;
+
     @Override
     public double sum(double a, double b) {
         return  a + b;
@@ -28,25 +29,30 @@ public class SimpleCalculator implements Calculator  {   // The calculators type
 
     @Override
     public void calculate(List<String> list) {
-        for (String iter: list) {
-            iter.trim();
+        for (String elem: list) {
+            elem.trim();
         }
         result = Double.parseDouble(list.get(0));
         for (int i = 1; i < list.size(); i++){
+            String currentValue = list.get(i);
 
-            if ("+".equals(list.get(i))) {
-                double b = Double.parseDouble(list.get(i + 1));
+            if (SUM.equals(currentValue)) {
+                String nextCurrentValue = list.get(i + 1);
+                double b = Double.parseDouble(nextCurrentValue);
                 result = sum(result, b);
             }
-            if ("-".equals(list.get(i))) {
-                double b = Double.parseDouble(list.get(i + 1));
+            if (SUB.equals(currentValue)) {
+                String nextCurrentValue = list.get(i + 1);
+                double b = Double.parseDouble(nextCurrentValue);
                 result = sub(result, b);
             }
-            if ("*".equals(list.get(i))) {
-                double b = Double.parseDouble(list.get(i + 1));
+            if (MUL.equals(currentValue)) {
+                String nextCurrentValue = list.get(i + 1);
+                double b = Double.parseDouble(nextCurrentValue);
                 result = mul(result, b);
-            }if ("/".equals(list.get(i))){
-                double b = Double.parseDouble(list.get(i + 1));
+            }if (DIV.equals(currentValue)){
+                String nextCurrentValue = list.get(i + 1);
+                double b = Double.parseDouble(nextCurrentValue);
                 result = div(result, b);
             }
         }
